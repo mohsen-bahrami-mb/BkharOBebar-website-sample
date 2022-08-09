@@ -1,0 +1,110 @@
+let products = [
+    pro001 = {
+        imgURL: '../imgs/hedset-001.jpg',
+        title: 'هدست 9845',
+        price: 400000,
+        priceOff: 350000,
+    },
+    pro002 = {
+        imgURL: '../imgs/hedset-002.jpg',
+        title: 'هدست oo45',
+        price: 1400000,
+        priceOff: 1050000,
+    },
+    pro003 = {
+        imgURL: '../imgs/hedset-003.jpg',
+        title: 'هدست p323p',
+        price: 400000,
+        priceOff: 350000,
+    },
+    pro004 = {
+        imgURL: '../imgs/hedset-004.jpg',
+        title: 'هدست erv',
+        price: 500000,
+        priceOff: null,
+    },
+    pro005 = {
+        imgURL: '../imgs/hedset-005.jpg',
+        title: 'هدست 998',
+        price: 2200000,
+        priceOff: null,
+    },
+    pro006 = {
+        imgURL: '../imgs/hedset-006.jpg',
+        title: 'هدست z235w',
+        price: 45000000,
+        priceOff: 35000000,
+    },
+    pro007 = {
+        imgURL: '../imgs/loptop-001.jpg',
+        title: 'لپ تاپ 9845',
+        price: 40000000,
+        priceOff: 35000000,
+    },
+    pro008 = {
+        imgURL: '../imgs/loptop-002.jpg',
+        title: 'لپ تاپ kj56',
+        price: 20000000,
+        priceOff: 12500000,
+    },
+    pro009 = {
+        imgURL: '../imgs/loptop-003.jpg',
+        title: 'لپ تاپ p323p',
+        price: 4000000,
+        priceOff: 3500000,
+    },
+    pro010 = {
+        imgURL: '../imgs/loptop-004.jpg',
+        title: 'لپ تاپ erv',
+        price: 50000000,
+        priceOff: null,
+    },
+    pro011 = {
+        imgURL: '../imgs/loptop-005.jpg',
+        title: 'لپ تاپ 998',
+        price: 22000000,
+        priceOff: null,
+    },
+    pro012 = {
+        imgURL: '../imgs/loptop-006.jpg',
+        title: 'لپ تاپ z235w',
+        price: 1450000,
+        priceOff: 1350000,
+    },
+    pro013 = {
+        imgURL: '../imgs/mobile-001.jpg',
+        title: 'موبایل 9845',
+        price: 14000000,
+        priceOff: 13500000,
+    },
+    pro014 = {
+        imgURL: '../imgs/mobile-002.jpg',
+        title: 'موبایل kj56',
+        price: 12000000,
+        priceOff: 11250000,
+    },
+    pro015 = {
+        imgURL: '../imgs/mobile-003.jpg',
+        title: 'موبایل p323p',
+        price: 14000000,
+        priceOff: 13500000,
+    },
+    pro016 = {
+        imgURL: '../imgs/mobile-004.jpg',
+        title: 'موبایل erv',
+        price: 15000000,
+        priceOff: null,
+    },
+    pro017 = {
+        imgURL: '../imgs/mobile-005.jpg',
+        title: 'موبایل 998',
+        price: 12200000,
+        priceOff: null,
+    },
+    pro018 = {
+        imgURL: '../imgs/mobile-006.jpg',
+        title: 'موبایل z235w',
+        price: 14500000,
+        priceOff: 13500000,
+    }
+]
