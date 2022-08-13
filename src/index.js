@@ -23,7 +23,7 @@ function pointNumber(valueNumber) {
 
 
 //////////make card-end//////////
-function MakeCardsProduct(productList, targetIdDoc, targetChild = null) {
+function makeCardsProduct(productList, targetIdDoc, targetChild = null) {
     let targetElemment = document.querySelector(`#${targetIdDoc}`)
     productList.forEach((productIndex) => {
         let productData = products[productIndex];
@@ -102,13 +102,13 @@ function MakeCardsProduct(productList, targetIdDoc, targetChild = null) {
 
 //////////top offer//////////
 let topOfferIndex = [1, 5, 15, 3, 6, 10, 11]
-MakeCardsProduct(topOfferIndex, "top-offer", "scroll-part");
+makeCardsProduct(topOfferIndex, "top-offer", "scroll-part");
 //////////top offer-end//////////
 
 
 //////////all products//////////
 let allProducts = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17]
-MakeCardsProduct(allProducts, "all-product");
+makeCardsProduct(allProducts, "all-product");
 //////////all products-end//////////
 
 
