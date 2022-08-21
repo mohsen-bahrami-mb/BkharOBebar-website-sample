@@ -33,6 +33,11 @@
 
 
 /* all */
+* {
+    font-family: "vazir";
+    font-size: 14px;
+}
+
 i {
     cursor: pointer;
     transition: all 0.3s;
@@ -44,11 +49,6 @@ i:hover {
 }
 
 /* scroll form */
-* {
-    font-family: "vazir";
-    font-size: 14px;
-}
-
 ::-webkit-scrollbar {
     width: 5px;
     height: 5px;
@@ -148,11 +148,11 @@ i:hover {
     z-index: 3;
 }
 
-#cart-num{
+#cart-num {
     position: relative;
 }
 
-#cart-num::after{
+#cart-num::after {
     content: "۰";
     display: grid;
     place-items: end center;
