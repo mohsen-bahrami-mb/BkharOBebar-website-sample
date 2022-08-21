@@ -32,7 +32,8 @@
                 </form>
             </div>
             <div class="col-5 order-1 col-md-4 order-md-2 text-left">
-                <i class="fa-solid fa-cart-shopping text-danger mt-2 ml-3 mr-auto" style="font-size: large;"></i>
+                <i class="fa-solid fa-cart-shopping text-danger mt-2 ml-3 mr-auto" style="font-size: large;"
+                    id="cart-num"></i>
                 <i class="fa-solid fa-circle-user text-danger mt-2 mr-auto d-inline d-md-none"
                     style="font-size: x-large;"></i>
                 <button type="button" class="btn btn-sm btn-outline-danger mr-auto d-none d-md-inline">
@@ -142,6 +143,53 @@
     <!-- footer-end -->
 
     <!-- shop Cart -->
+    <section id="cart"
+        class="position-fixed hamburger-down container-md m-0 p-3 shadow-lg border border-danger bg-light">
+        <div class="row">
+            <div id="cart-handler" style="font-size: 1.5rem;"
+                class="col-12 col-md-1 order-md-2 d-flex justify-content-center align-items-center d-md-none">
+                &Congruent;
+            </div>
+            <div id="cart-total"
+                class="col-12 col-md-2 order-md-2 mr-auto d-flex flex-md-column justify-content-between justify-content-md-center align-items-center">
+                <span class="border-bottom border-danger m-2">مبلغ کل خرید</span>
+                <span class="point-number m-2" id="cart-total-price">0</span>
+                <button type="button" class="btn btn-danger m-2">پرداخت</button>
+            </div>
+            <div id="cart-list" class="col-12 col-md-9 order-md-1">
+                <!-- <div class="card no-gutters shadow border-0">
+                    <div class="col-1 d-flex justify-content-center align-items-center">
+                        1
+                    </div>
+                    <div class="col-2 d-flex justify-content-center align-items-center">
+                        <img src="./imgs/loptop-003.jpg" alt="">
+                    </div>
+                    <div class="col-6 d-flex justify-content-center align-items-center">
+                        <div class="card-body">
+                            <div class="card-title">${productData.title}</div>
+                            <div class="card-text">
+                                <span class="text-danger point-number d-block"
+                                    style="text-decoration: line-through solid 1.5px; font-size: 0.7rem;">${productData.price}</span>
+                                <span class="text-success point-number"
+                                    style="font-size: 0.7rem;">${productData.priceOff}</span>
+                                <span style="font-size: 0.7rem;"> تومان </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3 d-flex justify-content-center align-items-center">
+                        <button type="button" proid="${productData.proId}"
+                            class="btn btn-outline-danger btn-sm add-product"
+                            style="font-weight: bolder;">&plus;</button>
+                        <span class="mx-2">0</span>
+                        <button type="button" proid="${productData.proId}"
+                            class="btn btn-outline-danger btn-sm remove-product"
+                            style="font-weight: bolder;">&minus;</button>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </section>
+    <!-- add to cart - js -->
     <!-- shop Cart-end -->
 
     <!-- Optional JavaScript -->
