@@ -3,6 +3,11 @@
 import { products } from "./data-base.js";
 //////////variable-end//////////
 
+//////////cart list//////////
+let cartList = [];
+let repeatCartList = [];
+//////////cart list-end//////////
+
 
 //////////top offer//////////
 let topOfferIndex = [1, 5, 15, 3, 6, 10, 11]
@@ -14,11 +19,6 @@ makeCardsProduct(topOfferIndex, "normal", "#top-offer", ".scroll-part");
 let allProducts = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
 makeCardsProduct(allProducts, "normal", "#all-product");
 //////////all products-end//////////
-
-
-//////////cart list//////////
-let cartList = []
-//////////cart list-end//////////
 
 
 //////////refresh//////////
@@ -39,6 +39,32 @@ function refreshDetail() {
         numTag.innerHTML = pointNumber(numTag.innerHTML)
     })
     //////////point number-end//////////
+    
+    //////////add & remove btn//////////
+    Array.from(document.querySelectorAll('.add-product')).forEach((addBtn) => {
+        addBtn.addEventListener('click', (e) => {
+            let myElement;
+            let myClassName
+            if (e.target.className.includes('add-product')) {
+                myElement = e.target;
+                myClassName = e.target.className;
+            }
+            if (e.target.parentElement.className.includes('add-product')) {
+                myElement = e.target.parentElement;
+                myClassName = e.target.parentElement.className;
+            }
+            addRemoveCart(myElement, myClassName)
+        })
+    })
+
+    Array.from(document.querySelectorAll('.remove-product')).forEach((addBtn) => {
+        addBtn.addEventListener('click', (e) => {
+            let myElement = e.target;
+            let myClassName = e.target.className;
+            addRemoveCart(myElement, myClassName)
+        })
+    })
+    //////////add & remove btn-end//////////
 }
 //////////refresh-end//////////
 
@@ -70,9 +96,11 @@ function makeCardsProduct(productList, cardModel, targetIdDoc, targetChild = nul
         let productData = products[productIndex];
         let productCard = document.createElement('div');
         ////cart detail////
-        let cartNumber = null;
-        let cartCount = null;
+        // let cartNumber = cartNumber(productIndex) || 0;
+        let cartNumber = cartList.findIndex(pro => pro == productIndex) + 1 || 0;
+        let cartCount = repeatCartCount(productIndex) || 0;
         ////cart detail-end////
+
         if (cardModel == "normal") {
             productCard.className = "card shadow";
             productCard.innerHTML = `
@@ -177,6 +205,16 @@ function makeCardsProduct(productList, cardModel, targetIdDoc, targetChild = nul
 //////////make card-end//////////
 
 
+//////////make repeat cart Count//////////
+function repeatCartCount(productIndex) {
+    // let cartNumber = cartNumber
+    let hasRepeatIndex = repeatCartList.filter(index => index == productIndex);
+    if (hasRepeatIndex.length > 0) return hasRepeatIndex.length + 1;
+    else return 1;
+}
+//////////make repeat cart Count-end//////////
+
+
 //////////clear card list//////////
 function clearCardList(targetIdDoc, targetChild = null) {
     let targetElemment = document.querySelector(`${targetIdDoc}`)
@@ -187,7 +225,6 @@ function clearCardList(targetIdDoc, targetChild = null) {
     }
 }
 //////////clear card list-end//////////
-
 
 
 //////////show cart//////////
@@ -235,14 +272,16 @@ document.querySelector('#cart').addEventListener('animationend', (e) => {
 
 
 //////////add & remove on cart//////////
-
 function addRemoveCart(myElement, myClassName) {
     let proId = myElement.attributes.proid.value;
     let proIndex
     if (myClassName.includes("add-product")) {
-        let pro = products.filter((pro, index) => { if (pro.proId == proId) proIndex = index })
-        cartList.push(proIndex)
-        console.log(cartList)
+        let product = products.filter((pro, index) => { if (pro.proId == proId) proIndex = index })
+        let repeatCart = cartList.filter(index => index == proIndex)
+        if (repeatCart.length > 0) repeatCartList.push(proIndex)
+        else cartList.push(proIndex)
+        // console.log("cartList: ",cartList)
+        // console.log("repeatCart: ",repeatCartList)
     }
     if (myClassName.includes("remove-product")) {
         console.log(proId)
@@ -251,30 +290,8 @@ function addRemoveCart(myElement, myClassName) {
     makeCardsProduct(cartList, "cart", "#cart-list");
     refreshDetail();
 }
-
-Array.from(document.querySelectorAll('.add-product' || '.add-product i')).forEach((addBtn) => {
-    addBtn.addEventListener('click', (e) => {
-        let myElement;
-        let myClassName
-        if (e.target.className.includes('add-product')) {
-            myElement = e.target;
-            myClassName = e.target.className;
-        }
-        if (e.target.parentElement.className.includes('add-product')) {
-            myElement = e.target.parentElement;
-            myClassName = e.target.parentElement.className;
-        }
-        addRemoveCart(myElement, myClassName)
-    })
-})
-
-Array.from(document.querySelectorAll('.remove-product')).forEach((addBtn) => {
-    addBtn.addEventListener('click', (e) => {
-        let myElement = e.target;
-        let myClassName = e.target.className;
-        addRemoveCart(myElement, myClassName)
-    })
-})
 //////////add & remove on cart-end//////////
+
+
 
 refreshDetail()
