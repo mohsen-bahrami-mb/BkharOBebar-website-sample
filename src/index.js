@@ -6,6 +6,9 @@ import { products } from "./data-base.js";
 //////////cart list//////////
 let cartList = [];
 let repeatCartList = [];
+let listCartItems = [];
+let listPrice = [];
+let totalForPay;
 //////////cart list-end//////////
 
 
@@ -23,6 +26,31 @@ makeCardsProduct(allProducts, "normal", "#all-product");
 
 //////////refresh//////////
 function refreshDetail() {
+    //////////add & remove cart btn//////////
+    Array.from(document.querySelectorAll('.add-product')).forEach((addBtn) => {
+        addBtn.addEventListener('click', checkAddRemove)
+    })
+
+    Array.from(document.querySelectorAll('.remove-product')).forEach((addBtn) => {
+        addBtn.addEventListener('click', checkAddRemove)
+    })
+    //////////add & remove cart btn-end//////////
+
+    //////////cart icon counter//////////
+    let cartCounter = document.getElementById('cart-num');
+    cartCounter.setAttribute("cart-num-content", `${cartList.length + repeatCartList.length}`);
+    //////////cart icon counter-end//////////
+
+    //////////list cart items//////////
+    listCartItems = cartList.concat(repeatCartList)
+    totalPrice(listCartItems)
+    //////////list cart items-end//////////
+
+    //////////empty cart//////////
+    let emptyCart = '<div id="empty-cart" class="d-flex justify-content-center align-items-center w-100 h-100 text-secondary">سبد خرید شما خالی است</div>'
+    if (cartList.length == 0) document.querySelector('#cart-list').innerHTML = emptyCart
+    //////////empty cart-end//////////
+    
     //////////not offer//////////
     Array.from(document.querySelectorAll('.point-number')).forEach((text) => {
         if (text.className.includes('text-danger') && text.nextElementSibling.innerHTML == "") {
@@ -39,26 +67,6 @@ function refreshDetail() {
         numTag.innerHTML = pointNumber(numTag.innerHTML)
     })
     //////////point number-end//////////
-
-    //////////add & remove cart btn//////////
-    Array.from(document.querySelectorAll('.add-product')).forEach((addBtn) => {
-        addBtn.addEventListener('click', checkAddRemove)
-    })
-
-    Array.from(document.querySelectorAll('.remove-product')).forEach((addBtn) => {
-        addBtn.addEventListener('click', checkAddRemove)
-    })
-    //////////add & remove cart btn-end//////////
-
-    //////////cart icon counter//////////
-    let cartCounter = document.getElementById('cart-num');
-    cartCounter.setAttribute("cart-num-content", `${cartList.length + repeatCartList.length}`);
-    //////////cart icon counter-end//////////
-    
-    //////////empty cart//////////
-    let emptyCart = '<div id="empty-cart" class="d-flex justify-content-center align-items-center w-100 h-100 text-secondary">سبد خرید شما خالی است</div>'
-    if (cartList.length == 0) document.querySelector('#cart-list').innerHTML = emptyCart
-    //////////empty cart-end//////////
 }
 //////////refresh-end//////////
 
@@ -237,6 +245,7 @@ function addRemoveCart(myElement, myClassName) {
         if (repeatCart.length > 0) repeatCartList.splice(repeatCartList.lastIndexOf(proIndex), 1);
         else cartList.splice(cartList.indexOf(proIndex), 1);
     }
+
     clearCardList("#cart-list");
     makeCardsProduct(cartList, "cart", "#cart-list");
     refreshDetail();
@@ -255,6 +264,18 @@ function clearCardList(targetIdDoc, targetChild = null) {
     }
 }
 //////////clear card list-end//////////
+
+
+//////////counter total price//////////
+function totalPrice(listCartItems) {
+    listPrice.length = 0;
+    listCartItems.forEach(indexValue => {
+        listPrice.push(parseInt(products[indexValue].priceOff) || parseInt(products[indexValue].price))
+    });
+    totalForPay = listPrice.reduce((a, b) => a + b, 0);
+    document.querySelector('#cart-total-price').innerHTML = totalForPay;
+}
+//////////counter total price-end//////////
 
 
 //////////show cart//////////
