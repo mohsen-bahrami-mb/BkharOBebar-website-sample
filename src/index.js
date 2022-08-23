@@ -50,7 +50,7 @@ function refreshDetail() {
     let emptyCart = '<div id="empty-cart" class="d-flex justify-content-center align-items-center w-100 h-100 text-secondary">سبد خرید شما خالی است</div>'
     if (cartList.length == 0) document.querySelector('#cart-list').innerHTML = emptyCart
     //////////empty cart-end//////////
-    
+
     //////////not offer//////////
     Array.from(document.querySelectorAll('.point-number')).forEach((text) => {
         if (text.className.includes('text-danger') && text.nextElementSibling.innerHTML == "") {
@@ -295,6 +295,8 @@ function ChangeCartHeight(touchPos) {
     let dis = parseInt(document.getElementById('cart').style.height.split('px')[0]) - touchPosDistance
     if (moveTochHandler.length > 2 && document.getElementById('cart').offsetTop > innerHeight * 0.4) {
         document.getElementById('cart').style.height = dis + "px"
+    } else if (moveTochHandler.length > 2 && document.getElementById('cart').offsetTop <= innerHeight * 0.40) {
+        document.getElementById('cart').style.height = (innerHeight * 0.60) - 2 + "px"
     }
     if (document.getElementById('cart').offsetTop >= innerHeight * 0.90 || touchPosDistance > 15) {
         document.querySelector('.fa-cart-shopping').classList.toggle('text-danger');
