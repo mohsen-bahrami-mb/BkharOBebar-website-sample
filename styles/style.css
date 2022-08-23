@@ -37,9 +37,7 @@
     font-family: "vazir";
     font-size: 14px;
 }
-:root{
-    --cart-num-content: "";
-}
+
 i {
     cursor: pointer;
     transition: all 0.3s;

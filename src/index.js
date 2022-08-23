@@ -269,7 +269,7 @@ let moveTochHandler = []
 
 function ChangeCartHeight(touchPos) {
     moveTochHandler.push(touchPos)
-    document.getElementById('cart').style.height = document.getElementById('cart').clientHeight + "px";
+    document.getElementById('cart').style.height = document.getElementById('cart').offsetHeight + "px";
     let touchPosDistance = moveTochHandler[moveTochHandler.length - 1] - moveTochHandler[moveTochHandler.length - 2]
     let dis = parseInt(document.getElementById('cart').style.height.split('px')[0]) - touchPosDistance
     if (moveTochHandler.length > 2 && document.getElementById('cart').offsetTop > innerHeight * 0.4) {
@@ -299,6 +299,6 @@ document.getElementById('cart-handler').addEventListener('touchend', () => {
 document.querySelector('#cart').addEventListener('animationend', (e) => {
     e.target.style.height = "max-content"
 })
-//////////how cart-end//////////
+//////////show cart-end//////////
 
 refreshDetail()
