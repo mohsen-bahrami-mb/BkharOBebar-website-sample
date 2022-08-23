@@ -40,7 +40,7 @@ function refreshDetail() {
     })
     //////////point number-end//////////
 
-    //////////add & remove btn//////////
+    //////////add & remove cart btn//////////
     Array.from(document.querySelectorAll('.add-product')).forEach((addBtn) => {
         addBtn.addEventListener('click', checkAddRemove)
     })
@@ -48,7 +48,17 @@ function refreshDetail() {
     Array.from(document.querySelectorAll('.remove-product')).forEach((addBtn) => {
         addBtn.addEventListener('click', checkAddRemove)
     })
-    //////////add & remove btn-end//////////
+    //////////add & remove cart btn-end//////////
+
+    //////////cart icon counter//////////
+    let cartCounter = document.getElementById('cart-num');
+    cartCounter.setAttribute("cart-num-content", `${cartList.length + repeatCartList.length}`);
+    //////////cart icon counter-end//////////
+    
+    //////////empty cart//////////
+    let emptyCart = '<div id="empty-cart" class="d-flex justify-content-center align-items-center w-100 h-100 text-secondary">سبد خرید شما خالی است</div>'
+    if (cartList.length == 0) document.querySelector('#cart-list').innerHTML = emptyCart
+    //////////empty cart-end//////////
 }
 //////////refresh-end//////////
 
@@ -80,7 +90,6 @@ function makeCardsProduct(productList, cardModel, targetIdDoc, targetChild = nul
         let productData = products[productIndex];
         let productCard = document.createElement('div');
         ////cart detail////
-        // let cartNumber = cartNumber(productIndex) || 0;
         let cartNumber = cartList.indexOf(productIndex) + 1 || 0;
         let cartCount = repeatCartCount(productIndex) || 0;
         ////cart detail-end////
@@ -191,7 +200,6 @@ function makeCardsProduct(productList, cardModel, targetIdDoc, targetChild = nul
 
 //////////make repeat cart Count//////////
 function repeatCartCount(productIndex) {
-    // let cartNumber = cartNumber
     let hasRepeatIndex = repeatCartList.filter(index => index == productIndex);
     if (hasRepeatIndex.length > 0) return hasRepeatIndex.length + 1;
     else return 1;
@@ -199,11 +207,49 @@ function repeatCartCount(productIndex) {
 //////////make repeat cart Count-end//////////
 
 
+//////////add & remove on cart//////////
+function checkAddRemove(e) {
+    let myElement;
+    let myClassName;
+    if (e.target.className.includes('add-product') || e.target.className.includes('remove-product')) {
+        myElement = e.target;
+        myClassName = e.target.className;
+    }
+    if (e.target.parentElement.className.includes('add-product') || e.target.parentElement.className.includes('remove-product')) {
+        myElement = e.target.parentElement;
+        myClassName = e.target.parentElement.className;
+    }
+    addRemoveCart(myElement, myClassName);
+}
+
+function addRemoveCart(myElement, myClassName) {
+    let proId = myElement.attributes.proid.value;
+    let proIndex
+    if (myClassName.includes("add-product")) {
+        let product = products.filter((pro, index) => { if (pro.proId == proId) proIndex = index });
+        let repeatCart = cartList.filter(index => index == proIndex);
+        if (repeatCart.length > 0) repeatCartList.push(proIndex);
+        else cartList.push(proIndex);
+    }
+    if (myClassName.includes("remove-product")) {
+        let product = products.filter((pro, index) => { if (pro.proId == proId) proIndex = index });
+        let repeatCart = repeatCartList.filter(index => index == proIndex);
+        if (repeatCart.length > 0) repeatCartList.splice(repeatCartList.lastIndexOf(proIndex), 1);
+        else cartList.splice(cartList.indexOf(proIndex), 1);
+    }
+    clearCardList("#cart-list");
+    makeCardsProduct(cartList, "cart", "#cart-list");
+    refreshDetail();
+}
+//////////add & remove on cart-end//////////
+
+
 //////////clear card list//////////
 function clearCardList(targetIdDoc, targetChild = null) {
     let targetElemment = document.querySelector(`${targetIdDoc}`)
     if (targetChild) {
-        (targetElemment.querySelector(`${targetChild}`).childNodes.forEach((a => targetElemment.querySelector(`${targetChild}`).removeChild(a))))
+        (targetElemment.querySelector(`${targetChild}`).childNodes.forEach((a =>
+            targetElemment.querySelector(`${targetChild}`).removeChild(a))))
     } else if (!targetChild) {
         (targetElemment.childNodes.forEach((a => targetElemment.removeChild(a))))
     }
@@ -218,6 +264,7 @@ function cartShow(e) {
     document.querySelector('#cart').classList.toggle('hamburger-down');
     document.querySelector('#cart').classList.toggle('hamburger-up');
 }
+
 let moveTochHandler = []
 
 function ChangeCartHeight(touchPos) {
@@ -253,44 +300,5 @@ document.querySelector('#cart').addEventListener('animationend', (e) => {
     e.target.style.height = "max-content"
 })
 //////////how cart-end//////////
-
-
-//////////add & remove on cart//////////
-function checkAddRemove(e) {
-    let myElement;
-    let myClassName;
-    if (e.target.className.includes('add-product') || e.target.className.includes('remove-product')) {
-        myElement = e.target;
-        myClassName = e.target.className;
-    }
-    if (e.target.parentElement.className.includes('add-product') || e.target.parentElement.className.includes('remove-product')) {
-        myElement = e.target.parentElement;
-        myClassName = e.target.parentElement.className;
-    }
-    addRemoveCart(myElement, myClassName);
-}
-
-function addRemoveCart(myElement, myClassName) {
-    let proId = myElement.attributes.proid.value;
-    let proIndex
-    if (myClassName.includes("add-product")) {
-        let product = products.filter((pro, index) => { if (pro.proId == proId) proIndex = index });
-        let repeatCart = cartList.filter(index => index == proIndex);
-        if (repeatCart.length > 0) repeatCartList.push(proIndex);
-        else cartList.push(proIndex);
-    }
-    if (myClassName.includes("remove-product")) {
-        let product = products.filter((pro, index) => { if (pro.proId == proId) proIndex = index });
-        let repeatCart = repeatCartList.filter(index => index == proIndex);
-        if (repeatCart.length > 0) repeatCartList.splice(repeatCartList.lastIndexOf(proIndex),1);
-        else cartList.splice(cartList.indexOf(proIndex),1);
-    }
-    console.log("cartList: ",cartList)
-    console.log("repeatCart: ",repeatCartList)
-    clearCardList("#cart-list");
-    makeCardsProduct(cartList, "cart", "#cart-list");
-    refreshDetail();
-}
-//////////add & remove on cart-end//////////
 
 refreshDetail()

@@ -37,7 +37,9 @@
     font-family: "vazir";
     font-size: 14px;
 }
-
+:root{
+    --cart-num-content: "";
+}
 i {
     cursor: pointer;
     transition: all 0.3s;
@@ -153,7 +155,8 @@ i:hover {
 }
 
 #cart-num::after {
-    content: "۰";
+    content: attr(cart-num-content);
+    font-family: "vazir";
     display: grid;
     place-items: end center;
     position: absolute;
